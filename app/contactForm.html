@@ -1,0 +1,106 @@
+<form>
+  <div class="form-group">
+    <label for="nome">Nome completo: </label>
+    <input ng-model="nome" class="form-control" id="nome" placeholder="Digite seu nome completo" />
+  </div>
+
+  
+  <div class="form-group">
+    <label for="email">Email:</label>
+    <input ng-model="email" class="form-control" id="email" placeholder="E-mail" />
+  </div>
+  
+
+
+  <div class="form-group">
+    <label for="phone">Telefone:</label>
+    {{Ctrl.errorText}}
+    <div class="input-group">
+      <input class="form-control" ng-model="phone" id="phone" placeholder="Telefone"/>
+      <div class="input-group-append">
+        <button ng-click="Ctrl.addPhone()" class="btn btn-info" type="button">Adicionar</button>
+      </div>
+    </div>
+  </div>
+  
+  <div class="form-group" ng-repeat="phone in Ctrl.contact.phones">
+    <div class="input-group">
+      <input class="form-control" value="Telefone {{$index+1}}: {{phone}}" readonly/>
+      <div class="input-group-append">
+        <button ng-click="Ctrl.removePhone($index)" class="btn btn-danger" type="button">&times</button>
+      </div>
+    </div>
+  </div>
+  
+
+
+  <div class="form-group">
+    <label for="cep">Endereços:</label>
+    <div class="input-group">
+      <input ng-model="cep" ng-keypress="Ctrl.enter($event)" class="form-control" id="cep" placeholder="Digite o CEP" />
+      <div class="input-group-append">
+        <button ng-click="Ctrl.findCep()" class="btn btn-info" type="button">Buscar CEP</button>
+      </div>
+    </div>
+  </div>
+
+
+  <div ng-show="Ctrl.cep">
+    <div class="form-row">
+      <div class="col-md-10">
+        <label for="logradouro">Logradouro:</label>
+        <input type="text" value="{{Ctrl.address.logradouro}}" class="form-control" id="logradouro" readonly/>
+      </div>
+
+      <div class=" col-md-2">
+          <label for="numero">Nº:</label>
+          <input type="text" class="form-control" id="numero" placeholder="Digite o Nº" />
+        </div>
+      </div>
+
+    
+      <div class="form-row">
+
+        <div class="col-md-4 mb-3">
+          <label for="bairro">Localidade:</label>
+          <input type="text" value="{{Ctrl.address.bairro}}" class="form-control" id="bairro" readonly/>
+        </div>
+
+        <div class="col-md-4 mb-3">
+          <label for="cidade">Cidade:</label>
+          <input type="text" value="{{Ctrl.address.cidade}}" class="form-control" id="cidade" readonly/>
+        </div>
+
+        <div class="col-md-4 mb-3">
+          <label for="estado">UF:</label>
+          <input type="text" value="{{Ctrl.address.estado}}" class="form-control" id="estado" readonly/>
+        </div>
+
+      </div>
+      
+      <div class="mb-3">
+        <button ng-click="Ctrl.addAddress()" class="btn btn-primary" type="submit">Salvar Endereço</button>
+      </div>
+
+    </div>
+    
+  </div>  
+
+  <div class="form-group" ng-repeat="addressContact in Ctrl.contact.enderecos">
+    <div class="input-group mb-3">
+      <input class="form-control" value="Endereço {{$index + 1}}: {{addressContact.logradouro}}, {{addressContact.numero}} - {{addressContact.bairro}} / {{addressContact.cidade}}-{{addressContact.estado}} / CEP: {{addressContact.cep}}"/>
+      <div class="input-group-append">
+        <button ng-click="Ctrl.removeAddress($index)" class="btn btn-danger" type="button">&times</button>
+      </div>
+    </div>
+  </div>
+    
+    
+
+  <div class="form-group">
+      <label for="obs">Observações do contato:</label>
+      <textarea class="form-control" name="obs" id="obs" placeholder="Observações do contato"></textarea>
+  </div>
+
+  <button ng-click="Ctrl.store()" class="btn btn-primary" type="button">Cadastrar</button>
+</form>
